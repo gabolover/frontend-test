@@ -11,20 +11,20 @@ export const Search = ({ handleSearch, handleFilter, filter }) => {
   };
 
   const handleChangeFilter = (e) => {
-    setFilterValue(e.target.value); // Actualizar el estado del filtro
-    handleFilter(e.target.value); // Llamar a la función handleFilter
+    setFilterValue(e.target.value);
+    handleFilter(e.target.value);
   };
   return (
     <StyledDiv>
       <StyledInput
         type="text"
-        placeholder="Ingrese el producto que desea buscar"
+        placeholder="Search..."
         onChange={handleChange}
         value={value}
       />
 
       <Container>
-        <Label htmlFor="filter">Filtrar Por</Label>
+        <Label htmlFor="filter">Filter by</Label>
         <Select id="filter" onChange={handleChangeFilter} value={filterValue}>
           <option value="model">Model</option>
           <option value="brand">Brand</option>
@@ -44,7 +44,6 @@ const Label = styled.label`
   font-weight: bold;
 `;
 
-// Estilo para el select
 const Select = styled.select`
   padding: 8px;
   font-size: 14px;

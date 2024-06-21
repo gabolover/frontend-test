@@ -2,7 +2,7 @@ import localforage from "localforage";
 import moment from "moment";
 
 const CACHE_PREFIX = "cachedData_";
-const CACHE_EXPIRATION = 60 * 60 * 1000; // 1 hora en milisegundos
+const CACHE_EXPIRATION = 60 * 60 * 1000;
 
 export const getCachedData = async (endpoint) => {
   try {
@@ -14,10 +14,9 @@ export const getCachedData = async (endpoint) => {
     ) {
       return cachedData.data;
     } else {
-      return null; // Los datos han expirado o no están disponibles
+      return null;
     }
   } catch (error) {
-    console.error(`Error al obtener datos en caché para ${endpoint}:`, error);
     return null;
   }
 };
@@ -30,6 +29,6 @@ export const cacheData = async (endpoint, data) => {
     };
     await localforage.setItem(`${CACHE_PREFIX}${endpoint}`, cachedData);
   } catch (error) {
-    console.error(`Error al almacenar datos en caché para ${endpoint}:`, error);
+    return null;
   }
 };

@@ -9,12 +9,10 @@ export const Breadcrumbs = () => {
   const getProductName = (productId) => {
     if (products) {
       const product = products.find((p) => p.id === productId);
-      return product ? `${product.model} - ${product.brand}` : "Product"; // Devuelve el nombre del producto o "Product" por defecto
+      return product ? `${product.model} - ${product.brand}` : "Product";
     }
-    return "Product"; // Si no hay productos disponibles, devuelve "Product"
+    return "Product";
   };
-
-  // Construir los breadcrumbs
   const breadcrumbs = [
     { name: "Home", path: "/" },
     ...pathnames.map((pathname, index) => ({
