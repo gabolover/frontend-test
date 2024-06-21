@@ -19,14 +19,12 @@ module.exports = {
       "warn",
       { allowConstantExport: true },
     ],
-    "no-console": "error", // Mostrar error para 'console.log'
+    "no-console": "error",
   },
   overrides: [
     {
-      files: ["src/**/*.jsx"], // Aplicar reglas específicas a archivos .jsx
-      rules: {
-        // Reglas específicas para archivos .jsx si es necesario
-      },
+      files: ["src/**/*.jsx"],
+      rules: {},
     },
   ],
 };
