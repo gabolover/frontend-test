@@ -10,9 +10,11 @@ export const Item = ({ imgUrl, brand, model, price, id }) => {
   return (
     <StyledDiv onClick={handleClick}>
       <img src={imgUrl} alt={`${brand}-${model}`} />
-      <p>{brand}</p>
-      <p>{model}</p>
-      <p>${price ? price : 0}</p>
+      <Container>
+        <p>{brand}</p>
+        <p>{model}</p>
+        <Price>${price ? price : 0}</Price>
+      </Container>
     </StyledDiv>
   );
 };
@@ -35,4 +37,16 @@ const StyledDiv = styled.div`
   p {
     margin: 0.5rem 0;
   }
+`;
+
+const Price = styled.p`
+  color: green;
+  font-weight: bold;
+  font-size: 1.7rem;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 `;

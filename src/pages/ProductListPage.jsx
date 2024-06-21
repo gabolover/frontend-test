@@ -1,30 +1,13 @@
-import { useEffect, useState } from "react";
-import { API_URL } from "../config";
+import { useState } from "react";
 import { Item } from "../components/Item";
-import { getCachedData, cacheData } from "../services/cacheService";
 import styled from "styled-components";
 import { Search } from "../components/Search";
+import { useProducts } from "../hooks/useProducts";
 
 export const ProductListPage = () => {
-  const [products, setProducts] = useState([]);
   const [value, setValue] = useState("");
   const [filter, setFilter] = useState("model");
-
-  useEffect(() => {
-    const getProducts = async () => {
-      let productsCache = await getCachedData("products");
-      console.log(productsCache);
-      if (!productsCache) {
-        const response = await fetch(`${API_URL}/api/product`);
-        const data = await response.json();
-        await cacheData("products", data);
-        productsCache = data;
-      }
-      setProducts(productsCache);
-    };
-
-    getProducts();
-  }, []);
+  const { products } = useProducts();
 
   const filteredProducts = products.filter((product) =>
     product[filter].toLowerCase().includes(value.toLowerCase())
@@ -48,9 +31,11 @@ export const ProductListPage = () => {
         />
       </StyledSearchContainer>
       <StyledDiv>
-        {filteredProducts.map((product) => (
-          <Item key={product.id} {...product} />
-        ))}
+        {filteredProducts.length > 0
+          ? filteredProducts.map((product) => (
+              <Item key={product.id} {...product} />
+            ))
+          : "No hay productos disponibles"}
       </StyledDiv>
     </div>
   );
