@@ -8,7 +8,7 @@ Para ejecutar el linter: npm lint
 
 
 Vista principal
-![image](https://github.com/gabolover/frontend-test/assets/64295965/0bf1a4b8-d9c4-4c7f-b603-292d90b3ab55)
+![image](https://github.com/gabolover/frontend-test/assets/64295965/bb096d59-de85-4e0c-9a42-cc0b37ecd3c7)
 
 Vista detalles 
 ![image](https://github.com/gabolover/frontend-test/assets/64295965/1350e4bb-e6d3-48ac-9db2-cad5465cb3a6)
