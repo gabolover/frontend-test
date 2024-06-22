@@ -11,3 +11,12 @@ test("Title Verification", async ({ page }) => {
 
   expect(titleText).toContain("Details");
 });
+
+test("Button Verification", async ({ page }) => {
+  await page.goto(LOCALHOST_URL);
+
+  const titleElement = await page.waitForSelector("button");
+  const titleText = await titleElement.innerText();
+
+  expect(titleText).toContain("Clear Cart");
+});
