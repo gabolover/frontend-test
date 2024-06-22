@@ -18,5 +18,5 @@ test("Button Verification", async ({ page }) => {
   const titleElement = await page.waitForSelector("button");
   const titleText = await titleElement.innerText();
 
-  expect(titleText).toContain("Clear Cart");
+  expect(titleText).toContain("Clear cart");
 });
