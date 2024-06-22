@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 import { Breadcrumbs } from "./Breadcrumbs";
 import styled from "styled-components";
-import { UseCart } from "../hooks/UseCart";
-import { useState } from "react";
+import { useCart } from "../hooks/useCart";
+import { useState, useEffect } from "react";
 
 export const Header = () => {
-  const { cart, clearCart } = UseCart();
+  const { cart, clearCart, deleteFromCart } = useCart();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCartUpdated, setIsCartUpdated] = useState(false);
 
   const calculateTotal = () => {
     let total = 0;
@@ -34,13 +35,31 @@ export const Header = () => {
     setIsModalOpen(false);
   };
 
+  useEffect(() => {
+    // Cuando se actualiza el carrito, activar la animación por un breve período
+    if (total !== 0) {
+      setIsCartUpdated(true);
+      setTimeout(() => {
+        setIsCartUpdated(false);
+      }, 500); // Después de medio segundo, desactivar la animación
+    }
+  }, [total]);
+
   return (
     <div>
       <StyledLink to="/">Cell Shop</StyledLink>
       <StyledDiv>
         <Breadcrumbs />
         <StyledCart>
-          <p onClick={openModal}>Cart ({total})</p>{" "}
+          <Container>
+            <AnimatedCart
+              onClick={openModal}
+              className={isCartUpdated ? "animate-cart" : ""}
+            >
+              🛒
+            </AnimatedCart>
+            <Bubble>{total}</Bubble>
+          </Container>
           <StyledButton onClick={clearCart}>Clear cart</StyledButton>
         </StyledCart>
       </StyledDiv>
@@ -65,6 +84,7 @@ export const Header = () => {
                     <th>Storage</th>
                     <th>Unit Price</th>
                     <th>Total</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -82,6 +102,19 @@ export const Header = () => {
                       <td>{product.storageName}</td>
                       <td>${product.price ? product.price : 0} </td>
                       <td>${product.price * product.quantity}</td>
+                      <td>
+                        <StyledButton
+                          onClick={() =>
+                            deleteFromCart(
+                              product.id,
+                              product.color,
+                              product.storage
+                            )
+                          }
+                        >
+                          ❌
+                        </StyledButton>
+                      </td>
                     </StyledRow>
                   ))}
                 </tbody>
@@ -95,7 +128,6 @@ export const Header = () => {
   );
 };
 
-// Estilos para el enlace usando styled-components
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: white;
@@ -108,14 +140,12 @@ const StyledLink = styled(Link)`
   }
 `;
 
-// Estilos para el contenedor principal usando styled-components
 const StyledDiv = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
-// Estilos para el botón usando styled-components
 const StyledButton = styled.button`
   padding: 0.5rem 1rem;
   border: none;
@@ -128,14 +158,17 @@ const StyledButton = styled.button`
   }
 `;
 
-// Estilos para el contenedor del carrito usando styled-components
 const StyledCart = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
 `;
+const Container = styled.div`
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+`;
 
-// Estilos para el overlay del modal usando styled-components
 const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -148,27 +181,19 @@ const ModalOverlay = styled.div`
   align-items: center;
 `;
 
-// Estilos para el contenedor principal del modal usando styled-components
 const ModalWrapper = styled.div`
-  background-color: rgba(
-    30,
-    30,
-    30,
-    0.8
-  ); /* Fondo semi-transparente gris oscuro */
-
+  background-color: rgba(30, 30, 30, 0.8);
   width: 80%;
-  max-width: 600px;
+  max-width: 800px;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
   @media (max-width: 600px) {
     width: 90%;
   }
 `;
 
-// Estilos para el encabezado del modal usando styled-components
 const ModalHeader = styled.div`
   display: flex;
   border-bottom: 1px solid #ccc;
@@ -177,7 +202,6 @@ const ModalHeader = styled.div`
   align-items: baseline;
 `;
 
-// Estilos para el botón de cerrar modal usando styled-components
 const ModalCloseButton = styled.button`
   background: none;
   border: none;
@@ -190,32 +214,27 @@ const ModalCloseButton = styled.button`
   }
 `;
 
-// Estilos para el título del modal usando styled-components
 const ModalTitle = styled.h2`
   font-size: 1.5rem;
   margin-bottom: 10px;
   color: #fff;
 `;
 
-// Estilos para el contenido del modal usando styled-components
 const ModalContent = styled.div`
   padding: 10px 0;
 `;
 
-// Estilos para la tabla de productos usando styled-components
 const StyledTable = styled.table`
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
 `;
 
-// Estilos para las imágenes de productos usando styled-components
 const StyledImage = styled.img`
   width: 32px;
   height: auto;
 `;
 
-// Estilos para el total a pagar usando styled-components
 const StyledTotal = styled.p`
   font-size: 1.5rem;
   font-weight: bold;
@@ -225,4 +244,36 @@ const StyledTotal = styled.p`
 
 const StyledRow = styled.tr`
   text-align: center;
+`;
+
+const Bubble = styled.span`
+  position: absolute;
+  top: 8px;
+  right: -8px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 4px 8px;
+  font-size: 9px;
+`;
+
+const AnimatedCart = styled.p`
+  font-size: 1.5rem;
+  &.animate-cart {
+    animation: bounce 0.5s ease;
+  }
+
+  @keyframes bounce {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    25%,
+    75% {
+      transform: scale(1.3);
+    }
+    50% {
+      transform: scale(1.5);
+    }
+  }
 `;

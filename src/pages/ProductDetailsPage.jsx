@@ -3,11 +3,11 @@ import { Actions } from "../components/Actions";
 import { Description } from "../components/Description";
 import { Image } from "../components/Image";
 import styled from "styled-components";
-import { UseProductsDetails } from "../hooks/useProductDetails";
+import { useProductsDetails } from "../hooks/useProductDetails";
 
 export const ProductDetailsPage = () => {
   const { id } = useParams();
-  const product = UseProductsDetails(id);
+  const product = useProductsDetails(id);
   return (
     <div>
       <h1>Details </h1>

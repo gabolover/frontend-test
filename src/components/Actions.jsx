@@ -1,9 +1,9 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { UseCart } from "../hooks/UseCart";
+import { useCart } from "../hooks/useCart";
 
 export const Actions = ({ id, options, brand, model, img, price }) => {
-  const { addToCart, loading } = UseCart();
+  const { addToCart, loading } = useCart();
   const { colors, storages } = options;
   const [color, setColor] = useState(colors[0].code);
   const [storage, setStorage] = useState(storages[0].code);
