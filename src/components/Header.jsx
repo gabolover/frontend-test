@@ -36,18 +36,17 @@ export const Header = () => {
   };
 
   useEffect(() => {
-    // Cuando se actualiza el carrito, activar la animación por un breve período
     if (total !== 0) {
       setIsCartUpdated(true);
       setTimeout(() => {
         setIsCartUpdated(false);
-      }, 500); // Después de medio segundo, desactivar la animación
+      }, 500);
     }
   }, [total]);
 
   return (
     <div>
-      <StyledLink to="/">Cell Shop</StyledLink>
+      <StyledLink to="/">Cell Shop 📱</StyledLink>
       <StyledDiv>
         <Breadcrumbs />
         <StyledCart>
