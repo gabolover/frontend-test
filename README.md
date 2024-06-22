@@ -1,8 +1,11 @@
-# React + Vite
+# Cell Shop
+Tienda de Celulares, realizada con react, react router, context, styled components, y playwright
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Vista principal
+![image](https://github.com/gabolover/frontend-test/assets/64295965/0bf1a4b8-d9c4-4c7f-b603-292d90b3ab55)
 
-Currently, two official plugins are available:
+Vista detalles 
+![image](https://github.com/gabolover/frontend-test/assets/64295965/1350e4bb-e6d3-48ac-9db2-cad5465cb3a6)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Carrito
+![image](https://github.com/gabolover/frontend-test/assets/64295965/25660e7b-fb0c-4b3f-8b10-571533ec7640)
