@@ -10,7 +10,7 @@ export const ProductDetailsPage = () => {
   const product = useProductsDetails(id);
   return (
     <div>
-      <h1>Details </h1>
+      <h1>Details</h1>
       <StyledContainer>
         <div>
           <Image img={product.img} />
